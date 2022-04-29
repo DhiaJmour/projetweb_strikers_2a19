@@ -57,5 +57,16 @@ class productsC
 			die('Erreur: ' . $e->getMessage());
 		}
 	}
+	function recuperer($id)
+	{
+		$sql = "SELECT * from categorie where ref=$id";
+		$db = config::getConnexion();
+		try {
+			$liste = $db->query($sql);
+			return $liste;
+		} catch (Exception $e) {
+			die('Erreur: ' . $e->getMessage());
+		}
+	}
 	
 }

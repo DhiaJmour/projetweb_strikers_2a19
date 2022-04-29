@@ -73,14 +73,33 @@ $listC=$db->query($req) ;
 
 if (isset($_POST['valider']))
 {
-  $req="insert INTO products(ref,categ,name,price,carac,image,quantity) values ('".$_POST['ref']."','".$_POST['categ']."','".$_POST['name']."',".$_POST['price'].",'".$_POST['carac']."','".$_POST['image']."','".$_POST['quantity']."')";
-   
-  $db=config::getConnexion();  
-  $sql=$db->prepare($req); 
-  $sql->execute(); 
- echo "<script> ok(); </script>" ;
+   $filename = $_FILES["upload"]["name"];
+   $tempname = $_FILES["upload"]["tmp_name"];    
+       $folder = "../../../uploads/".$filename;
+         
+  // $db = mysqli_connect("localhost", "root", "root", "photos");
  
-}
+       // Get all the submitted data from the form
+       $req="insert INTO products(ref,categ,name,price,carac,image,quantity) values ('".$_POST['ref']."','".$_POST['categ']."','".$_POST['name']."',".$_POST['price'].",'".$_POST['carac']."','$filename','".$_POST['quantity']."')";
+   
+       $db=config::getConnexion();  
+       $sql=$db->prepare($req); 
+       $sql->execute(); 
+       if(isset($_FILES['upload'])){
+         echo $_FILES['upload']['tmp_name'];
+     }
+       // Now let's move the uploadsed image into the folder: image
+       if (move_uploadsed_file($tempname, $folder))  {
+           $msg = "Image uploadsed successfully";
+       }else{
+           $msg = "Failed to uploads image";
+     }
+     echo "<script> ok(); </script>" ;
+
+ }
+
+ 
+
 /*
 
 include "../../entities/produit.php";
@@ -90,27 +109,28 @@ include "../../cores/categorieC.php";
 $cat = new categorieC();
 $listC = $cat->affichercategorie();
 
+
 if (isset($_POST['ref']) and isset($_POST['categ'])   and isset($_POST['name']) and isset($_POST['price']) and isset($_POST['carac']) and isset($_POST['quantity'])) {
 	$prod = new product($_POST['ref'], $_POST['categ'], "image", $_POST['name'], $_POST['price'], $_POST['carac'],"image", $_POST['quantity']);
 
 
-	// upload file
-	$target_dir = "../uploads/";
+	// uploads file
+	$target_dir = "../uploadss/";
 	//$imageUniqueName = md5(uniqid(rand(), true)) . $_FILES["image"]["tmp_name"];
-	$uploadOk = 1;
+	$uploadsOk = 1;
 
 	$target_file = $target_dir . $_FILES["image"]["name"];
 
 	var_dump($_FILES["image"]);
 	var_dump($target_file);
 
-	if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-		echo "The file " . basename($_FILES["image"]["name"]) . " has been uploaded.";
+	if (move_uploadsed_file($_FILES["image"]["tmp_name"], $target_file)) {
+		echo "The file " . basename($_FILES["image"]["name"]) . " has been uploadsed.";
 	} else {
-		echo "Sorry, there was an error uploading your file.";
+		echo "Sorry, there was an error uploadsing your file.";
 	}
 
-	$prod->setimage("http://localhost/zanimo/uploads/" . $_FILES["image"]["name"]);
+	$prod->setimage("http://localhost/zanimo/uploadss/" . $_FILES["image"]["name"]);
 
 
 	$prodC = new productsC();
@@ -167,9 +187,14 @@ foreach ($listC as $cat)
 
 <label style="font-weight: bold"> Caractéristiques </label> 
 <textarea type="text"  style="width:500px" name="carac"  > </textarea> </br>
-
-<label style="font-weight: bold">Ajouter une photo</label>
-<input type="file" class="form-control" name="image" > </br>
+<div class="form-group">
+                                        <label>File uploads</label>
+                                        <div class="custom-file">
+                                            <input type="file" name="upload" class="custom-file-input"
+                                                id="inputGroupFile02"/>
+                                            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                        </div>
+                                    </div>
 <label style="font-weight: bold">quantity</label>
 <input type="number" class="form-control" name="quantity">
 <input type="submit" value="valider" name="valider" action="produitmail.php"> 

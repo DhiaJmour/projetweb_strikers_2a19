@@ -117,7 +117,7 @@ $total+=1;
 </form>
 </td>
 <td>
-<a class="btn btn-primary btn-block" href="modifierP.php?id=<?php echo $prod['id'] ?>">
+<a class="btn btn-primary btn-block" href="modifP.php?id=<?php echo $prod['ref'] ?>">
 Modifier
 </a>
 <?php

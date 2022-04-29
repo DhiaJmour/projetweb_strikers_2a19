@@ -113,7 +113,7 @@ return $nb;
                                                                 <?PHP echo $x=nbcateg($row['marketName']);
                                                                 $table[$row['marketName']]= $x;
                                                                 if ($x<2){?>
-                                                                <h6 style="background-color: red" > Stock presque vide. </h6>
+                                                                <h6 style="background-color: yellow" > Stock presque vide. </h6>
                                                                  <?php
                                                                 }$total+=1;?>
                                                                 
@@ -127,7 +127,7 @@ return $nb;
                                                             </form>
                                                             </td>
                                                             <td>
-                                                            <a class="btn btn-primary btn-block" href="modifierC.php?id=<?php echo $row['id'] ?>">
+                                                            <a class="btn btn-primary btn-block" href="modifC.php?id=<?php echo $row['id'] ?>">
                                                             Modifier
                                                             </a>
                                                             </td>
