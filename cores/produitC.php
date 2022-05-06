@@ -1,18 +1,13 @@
 <?PHP
-//include '../config.php';
-//include("../config.php");
-//include("../config.php");
-//include("/cores/config.php");
+
 include "../../config.php";
 
-//include ("../views/config.php");
 
 class productsC
 {
 	function ajouterproducts($products)
 	{
-		include "../config.php";
-		require_once('../Model/produit.php');
+	
 		 $sql = "INSERT INTO products (ref,categ,name,price,carac,image,quantity) values (:ref, :categ, :name, :price, :carac,:image,:quantity) ";
         $db = config::getConnexion();
         try {
@@ -29,7 +24,17 @@ class productsC
             echo 'erreur: ' . $e->getMessage();
         }
 	}
-	
+	function rechercheprod($key)
+	{
+		$sql = "SELECT * FROM products WHERE name LIKE '%$key%' OR categ LIKE '%$key%' ";
+		$db = config::getConnexion();
+		try {
+			$liste = $db->query($sql);
+			return $liste;
+		} catch (Exception $e) {
+			die('Erreur: ' . $e->getMessage());
+		}
+	}
 
 	function afficherproducts()
 	{
@@ -57,10 +62,11 @@ class productsC
 			die('Erreur: ' . $e->getMessage());
 		}
 	}
-	function recuperer($id)
+	function recuperer($ref)
 	{
-		$sql = "SELECT * from categorie where ref=$id";
+		$sql = "SELECT * from products where ref= $ref";
 		$db = config::getConnexion();
+
 		try {
 			$liste = $db->query($sql);
 			return $liste;
@@ -68,5 +74,29 @@ class productsC
 			die('Erreur: ' . $e->getMessage());
 		}
 	}
+
+	function modifierproduit($products, $ref)
+	{
+		$sql = "UPDATE products SET ref= :ref,categ= :categ,name= :name,price= :price,carac= :carac,quantity= :quantity WHERE ref= $ref";
+        $db = config::getConnexion();
+		try {
+            $req = $db->prepare($sql);
+			$datas = array(':ref' => $products->getref(), ':categ' => $products->getcateg(), ':name' => $products->getname(), ':price' => $products->getprice(), ':carac' =>  $products->getcarac(), ':quantity' =>  $products->getquantity());
+			$req->bindValue(':ref', $ref);
+			$req->bindValue(':categ', $categ);
+			$req->bindValue(':name', $name);
+			$req->bindValue(':price', $price);
+			$req->bindValue(':carac', $carac);
+			$req->bindValue(':quantity', $quantity);
+		
+
+			$s = $req->execute();
+		} catch (Exception $e) {
+			echo " Erreur ! " . $e->getMessage();
+			echo " Les datas : ";
+			print_r($datas);
+		}
+	}
+
 	
 }

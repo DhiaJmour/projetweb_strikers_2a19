@@ -6,7 +6,7 @@ include "../../cores/produitC.php";
 
 
 if (isset($_POST['ref']) and isset($_POST['categ'])   and isset($_POST['name']) and isset($_POST['price']) and isset($_POST['carac']) and isset($_POST['quantity'])) {
-	$prod = new product($_POST['ref'], $_POST['categ'], "image", $_POST['name'], $_POST['price'], $_POST['carac'],"image", $_POST['quantity']);
+	$prod = new product($_POST['ref'], $_POST['categ'], $_POST['name'], $_POST['price'], $_POST['carac'],"image", $_POST['quantity']);
 
 
 	// upload file

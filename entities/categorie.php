@@ -1,5 +1,5 @@
 <?php
-class Ctegorie{
+class Categorie{
     private $id;
     private $marketName;
     private $marketLogo;
@@ -29,7 +29,7 @@ function setId($id){
 function setMarketName($marketName){
     $this->marketName=$marketName;
 }
-function setMarketLogo($marketLogo){
+function setmarketLogo($marketLogo){
     $this->marketLogo=$marketLogo;
 }
 

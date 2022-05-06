@@ -1,8 +1,7 @@
 
  <?php 
-include('includes/header.php');
-include('includes/navbar.php');
 include "../../cores/categorieC.php";
+
 	 $categ=new categorieC;
   
         $listC = $categ->affichercategorie();
@@ -115,7 +114,8 @@ return $nb;
                                                                 if ($x<2){?>
                                                                 <h6 style="background-color: yellow" > Stock presque vide. </h6>
                                                                  <?php
-                                                                }$total+=1;?>
+                                                                }
+                                                                $total+=1;?>
                                                                 
                                                                 
                                                             </td>

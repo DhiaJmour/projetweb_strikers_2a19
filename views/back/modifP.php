@@ -74,7 +74,7 @@ if (isset($_GET['ref'])){
    $db=config::getConnexion();
    $result=$db->query($req) ;
    foreach($result as $row){
-      $nom=$row['ref'];
+        $nom=$row['ref'];
         $prenom=$row['categ'];
         $image=$row['name'];
         $description=$row['price'];

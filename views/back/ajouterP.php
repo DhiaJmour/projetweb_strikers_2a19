@@ -73,14 +73,16 @@ $listC=$db->query($req) ;
 
 if (isset($_POST['valider']))
 {
-   $filename = $_FILES["upload"]["name"];
-   $tempname = $_FILES["upload"]["tmp_name"];    
-       $folder = "../../../uploads/".$filename;
+    $filename = $_FILES["upload"]["image"];
+
+   $filename =  "http://localhost/projetweb/views/front/images/car.jpeg" ; 
+   // $tempname = $_FILES["upload"]["i"];    
+      //  $folder = "../../../uploads/".$filename;
          
   // $db = mysqli_connect("localhost", "root", "root", "photos");
  
        // Get all the submitted data from the form
-       $req="insert INTO products(ref,categ,name,price,carac,image,quantity) values ('".$_POST['ref']."','".$_POST['categ']."','".$_POST['name']."',".$_POST['price'].",'".$_POST['carac']."','$filename','".$_POST['quantity']."')";
+       $req="insert INTO products(ref,categ,name,price,carac,image,quantity) values ('".$_POST['ref']."','".$_POST['categ']."','".$_POST['name']."',".$_POST['price'].",'".$_POST['carac']."','".$filename."','".$_POST['quantity']."')";
    
        $db=config::getConnexion();  
        $sql=$db->prepare($req); 
@@ -89,11 +91,11 @@ if (isset($_POST['valider']))
          echo $_FILES['upload']['tmp_name'];
      }
        // Now let's move the uploadsed image into the folder: image
-       if (move_uploadsed_file($tempname, $folder))  {
-           $msg = "Image uploadsed successfully";
-       }else{
-           $msg = "Failed to uploads image";
-     }
+   //     if (move_uploadsed_file($tempname, $folder))  {
+   //         $msg = "Image uploadsed successfully";
+   //     }else{
+   //         $msg = "Failed to uploads image";
+   //   }
      echo "<script> ok(); </script>" ;
 
  }

@@ -2,17 +2,18 @@
 class product
 {
     public $ref;
-    public $name;
+    
     public $categ;
+    public $name;
     public $price;
 	public $carac;
     public $image;
-	public $quantity ;
+	public $quantity;
 
-    function __construct($ref,$name,$categ,$price,$carac,$photo,$quantity)
+    function __construct($ref,$categ,$name,$price,$carac,$image,$quantity)
     {   $this->ref = $ref; 
-        $this->name = $name;
         $this->categ = $categ;
+        $this->name = $name;
 		$this->price = $price;
 		$this->carac = $carac;
         $this->image = $image;
@@ -23,16 +24,15 @@ class product
     {
         return $this->ref;
     }
-    function getname()
-    {
-        return $this->name;
-    }
     function getcateg()
     {
         return $this->categ;
     }
-  
- 
+    function getname()
+    {
+        return $this->name;
+    }
+   
     function getprice()
     {
         return $this->price;

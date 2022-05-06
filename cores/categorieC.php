@@ -5,14 +5,14 @@ ob_start();
 class categorieC
 {
  
-	function ajoutercategorie($categorie)
+	function ajoutercategorie($n,$l)
 	{
 		 $sql = "INSERT INTO categorie (marketName,marketLogo) values (:marketName,:marketLogo) ";
         $db = config::getConnexion(); 
         try {
             $req = $db->prepare($sql);
-            $req->bindValue(':marketName', $categorie->getMarketName());
-            $req->bindValue(':marketLogo', $categorie->getMarketLogo());
+            $req->bindValue(':marketName', $n);
+            $req->bindValue(':marketLogo', $l);
 
             $req->execute();
         } catch (Exception $e) {
@@ -20,6 +20,17 @@ class categorieC
         }
 	}
 
+	function rechercheCateg($key)
+	{
+		$sql = "SELECT * FROM categorie WHERE marketName LIKE '%$key%' " ;
+		$db = config::getConnexion();
+		try {
+			$liste = $db->query($sql);
+			return $liste;
+		} catch (Exception $e) {
+			die('Erreur: ' . $e->getMessage());
+		}
+	}
 	function affichercategorie()
 	{
 		$sql = " SELECT * FROM categorie ";
